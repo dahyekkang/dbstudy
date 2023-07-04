@@ -62,6 +62,7 @@ CREATE SEQUENCE DEPT_SEQ ORDER;
 --INSERT INTO DEPARTMENT_T(DEPT_NO, DEPT_NAME, LOCATION) VALUES(3, '총무부', '대구');
 --INSERT INTO DEPARTMENT_T(DEPT_NO, DEPT_NAME, LOCATION) VALUES(4, '기획부', '서울');
 
+-- 부서 데이터 입력
 INSERT INTO DEPARTMENT_T(DEPT_NO, DEPT_NAME, LOCATION) VALUES(DEPT_SEQ.NEXTVAL, '영업부', '대구');
 INSERT INTO DEPARTMENT_T(DEPT_NO, DEPT_NAME, LOCATION) VALUES(DEPT_SEQ.NEXTVAL, '인사부', '서울');
 INSERT INTO DEPARTMENT_T(DEPT_NO, DEPT_NAME, LOCATION) VALUES(DEPT_SEQ.NEXTVAL, '총무부', '대구');
@@ -83,15 +84,59 @@ CREATE SEQUENCE EMP_SEQ
     ORDER;
     
 -- 사원 데이터 입력
-INSERT INTO EMPLOYEE_T VALUES(EMPL_SEQ.NEXTVAL, '구창민', 1, '과장', 'M', '95/05/01', 5000000);
-INSERT INTO EMPLOYEE_T VALUES(EMPL_SEQ.NEXTVAL, '김민서', 1, '사원', 'M', '17/09/01', 2500000);
-INSERT INTO EMPLOYEE_T VALUES(EMPL_SEQ.NEXTVAL, '이은연', 2, '부장', 'F', '90/09/01', 5500000);
-INSERT INTO EMPLOYEE_T VALUES(EMPL_SEQ.NEXTVAL, '한성일', 2, '과장', 'M', '93/04/01', 5000000);
+INSERT INTO EMPLOYEE_T(EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY) VALUES(EMP_SEQ.NEXTVAL, '구창민', 1, '과장', 'M', '95/05/01', 5000000);
+INSERT INTO EMPLOYEE_T(EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY) VALUES(EMP_SEQ.NEXTVAL, '김민서', 1, '사원', 'M', '17/09/01', 2500000);
+INSERT INTO EMPLOYEE_T(EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY) VALUES(EMP_SEQ.NEXTVAL, '이은영', 2, '부장', 'F', '90/09/01', 5500000);
+INSERT INTO EMPLOYEE_T(EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY) VALUES(EMP_SEQ.NEXTVAL, '한성일', 2, '과장', 'M', '93/04/01', 5000000);
 -- 날짜는 하이픈(-) 또는 슬래시(/)로 구분
 COMMIT;
 
---ROLLBACK;
+-- ROLLBACK;    //COMMIT하면 ROLLBACK 되지 않음
 
 
--- 사용자 초기화
--- 열기 - 
+-- 수정
+/*
+    UPDATE 테이블
+    SET 업데이트할 내용, 업데이트할 내용, ...
+    WHERE 조건식
+*/
+-- 1. 부서번호가 3인 부서의 지역을 '인천'으로 변경하시오.
+UPDATE DEPARTMENT_T
+   SET LOCATION = '인천' -- SET절의 등호(=)는 대입연산자
+ WHERE DEPT_NO = 3; -- WHERE절의 등호(=)는 동등비교연산자(같은지 같지 않은지 비교)
+-- COMMIT전이므로 ROLLBACK(취소) 가능
+-- ROLLBACK;   --'인천'취소되고 '대구'로 바뀜
+
+-- 2. 부서번호가 2인 부서에 근무하는 모든 사원들의 연봉을 500000 증가시키시오.
+UPDATE EMPLOYEE_T
+   SET SALARY = SALARY + 500000
+ WHERE DEPART = 2;
+
+-- 삭제
+/*
+    DELETE
+      FROM 테이블명
+     WHERE 조건식
+*/
+-- 1. 지역이 '인천'인 부서를 삭제하시오.
+--(인천에 근무하는 사원이 없다.)
+DELETE
+  FROM DEPARTMENT_T
+ WHERE LOCATION = '인천';
+
+-- 2. 지역이 '서울'인 부서를 삭제하시오.
+--('서울'에 근무하는 사원이 있다. -> ON DELETE SET NULL 옵션에 의해서 부서정보가 NULL값으로 처리된다.)
+-- 외래키삭제옵션(ON DELETE SET NULL)이 없으면 삭제 자체가 불가(무결성 제약조건 위배)
+DELETE
+  FROM DEPARTMENT_T
+ WHERE LOCATION = '서울';
+
+
+
+
+
+
+
+
+
+
