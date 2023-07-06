@@ -61,6 +61,7 @@ ALTER TABLE BOARD_T ADD CONSTRAINT PK_BOARD PRIMARY KEY(BOARD_NO);
 -- 11. 작성자 칼럼에 MEMBER_T 테이블의 회원아이디를 참조하는 FK_MEMBER_BOARD 외래키를 설정하시오.
 -- 게시글을 작성한 회원 정보가 삭제되면 해당 회원이 작성한 게시글도 모두 함께 지워지도록 처리하시오.
 ALTER TABLE BOARD_T ADD CONSTRAINT FK_MEMBER_BOARD FOREIGN KEY(MEM_ID) REFERENCES MEMBER_T(MEM_ID) ON DELETE CASCADE;
+-- PK가 아니더라도 UNIQUE COLUMN은 일대다관계 맺을 수 있음
 
 -- 12. MEMBER_T 테이블과 BOARD_T 테이블을 모두 삭제하시오.
 DROP TABLE BOARD_T;

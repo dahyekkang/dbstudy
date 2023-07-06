@@ -32,9 +32,6 @@ SELECT SYSDATE - TO_DATE('23/07/01', 'YY/MM/DD')
      , TRUNC(SYSDATE - TO_DATE('23/07/01', 'YY/MM/DD'))     -- 경과한 일수 ex) 비밀번호 변경 안내창
   FROM DUAL;
 
---SELECT TO_DATE(SYSDATE) FROM DUAL;
---SELECT TO_CHAR(SYSDATE) FROM DUAL;
-
 -- 4. TIMESTAMP 형식의 날짜 연산
 --    1) INTERVAL 키워드를 이용한다.
 --    2) YEAR, MONTH, DAY, HOUR, MINUTE, SECOND 단위를 사용한다.
