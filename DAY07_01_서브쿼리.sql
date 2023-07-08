@@ -12,7 +12,7 @@
     단일 행 서브쿼리(single row sub query)
     1. 결과가 1행이다. (1개이다.)
     2. 단일 행 서브쿼리인 경우
-        1) WHERE 절에서 사용한 칼럼이 PK 또는 UNIQUE 칼럼인 경우 (동등비교 했을 때)
+        1) 서브쿼리 내 WHERE 절에서 사용한 칼럼이 PK 또는 UNIQUE 칼럼인 경우 (동등비교 했을 때)
         2) 통계 함수를 사용한 경우
     3. 단일 행 서브쿼리 연산자
         =, !=, >, >=, <, <=
@@ -29,7 +29,7 @@ SELECT *
   FROM EMPLOYEES
  WHERE JOB_ID = (SELECT JOB_ID 
                    FROM EMPLOYEES 
-                   WHERE EMPLOYEE_ID = 101);
+                  WHERE EMPLOYEE_ID = 101);
                    
 -- 2. 부서명이 'IT'인 부서에 근무하는 사원 조회하기
 
@@ -37,7 +37,7 @@ SELECT *
 --   FROM EMPLOYEES
 --  WHERE DEPPARTMNET_ID IN (부서명이 'IT'인 부서의 부서번호);
 
--- 'IN' 대신 '='이 온다면, 부서이름(DPARTMENT_NAME)이 PK X, 우연히 UNIQUE X여서 된거지
+-- 'IN' 대신 '='이 온다면, 부서이름(DPARTMENT_NAME)이 PK X, UNIQUE X 인데 우연히 된거지
 -- 중복이 가능하므로 =(단일)사용하면 안되고 IN(다중) 사용해야 맞는 쿼리임
 
 SELECT *
@@ -123,26 +123,3 @@ SELECT E.EMPLOYEE_ID,
          WHERE D.DEPARTMENT_ID = E.DEPARTMENT_ID
            AND D.DEPARTMENT_ID = 50) AS DEPT_NAME
   FROM EMPLOYEES E;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
