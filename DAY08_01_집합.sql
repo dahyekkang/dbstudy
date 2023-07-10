@@ -18,7 +18,7 @@
 
 -- 합집합
 SELECT 1, 2
-  FROM DUAL
+  FROM DUAL;
  UNION
 SELECT 3, 4
   FROM DUAL;
