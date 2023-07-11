@@ -32,7 +32,7 @@
 */
 --DROP USER C##GD;
 
---새로운 계정을 만드는 전체 스크립트
+--새로운 계정을 만드는 전체 스크립트 (계정 내 테이블 초기화 시 사용)
 ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
 DROP USER GD CASCADE;
 CREATE USER GD IDENTIFIED BY 1111;
