@@ -1,14 +1,17 @@
 /*
     기초데이터 준비
-    HR계정의 EMPLOYEES 테이블을 GD 계정으로 복사해서 사용
+    1. HR계정의 EMPLOYEES 테이블을 GD 계정으로 복사해서 사용한다.
+    2. 테이블을 복사해도 기본키/외래키 제약 조건은 복사가 되지 않는다. 필요하면 제약조건을 추가해야 한다.
 */
 
+-- 테이블 복사
 DROP TABLE EMPLOYEES;
 CREATE TABLE EMPLOYEES AS (
     SELECT *
       FROM HR.EMPLOYEES
 );
--- 기본키/외래키 제약 조건은 복사가 되지 않는다.
+
+-- 기본키/외래키 제약 조건 추가
 ALTER TABLE EMPLOYEES ADD CONSTRAINT PK_EMP PRIMARY KEY(EMPLOYEE_ID);
 
 /*
@@ -38,7 +41,7 @@ ALTER TABLE EMPLOYEES ADD CONSTRAINT PK_EMP PRIMARY KEY(EMPLOYEE_ID);
     1. 기본적으로 서버 메시지는 출력되지 않는다.
     2. 서버 메시지 출력을 위해서 최초 1회 아래 쿼리문을 실행한다.
         SET SERVEROUTPUT ON;
-    3. 출력하는 방법
+    3. 서버 메시지 출력하는 방법
         DBMS_OUTPUT.PUT_LINE(출력할 내용);
 */
 
@@ -51,7 +54,7 @@ BEGIN
 END;
 
 
--- 1. 스칼라 변수(직접 타입을 명시하는 방법)
+-- 스칼라 변수(직접 타입을 명시하는 방법)
 DECLARE
     NAME VARCHAR2(20 BYTE);
     AGE  NUMBER(3);
@@ -63,7 +66,7 @@ BEGIN
 END;
 
 
--- 2. 참조 변수(특정 칼럼의 타입을 명시)
+-- 참조 변수(특정 칼럼의 타입을 명시)
 DECLARE
     EMPLOYEEID EMPLOYEES.EMPLOYEE_ID%TYPE;
     FIRSTNAME  EMPLOYEES.FIRST_NAME%TYPE;
@@ -95,7 +98,7 @@ DECLARE
     SCORE NUMBER(3);
     GRADE VARCHAR2(1 BYTE);
 BEGIN
-    SCORE := 80;   -- 임의의 점수 저장
+    SCORE := 50;   -- 임의의 점수 저장
     IF SCORE >= 90 THEN
         GRADE := 'A';
     ELSIF SCORE >= 80 THEN
@@ -195,10 +198,10 @@ BEGIN
     END LOOP;
 END;
 
--- 사원번호가 100 ~ 109 사이의 사원번호, 사원명 출력
+-- 사원번호가 100 ~ 109 사이의 사원번호, 사원명 출력하기
 DECLARE EMPLOYEEID EMPLOYEES.EMPLOYEE_ID%TYPE;
-        FIRSTNAME EMPLOYEES.FIRST_NAME%TYPE;
-        LASTNAME EMPLOYEES.LAST_NAME%TYPE;
+        FIRSTNAME  EMPLOYEES.FIRST_NAME%TYPE;
+        LASTNAME   EMPLOYEES.LAST_NAME%TYPE;
 BEGIN
     EMPLOYEEID := 100;
      WHILE EMPLOYEEID <= 109 LOOP
@@ -228,7 +231,6 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE(N);
     END LOOP;
 END;
-
 
 
 /*
@@ -305,7 +307,7 @@ END;
 -- 데이터를 찾지 못하는 겅우의 예외 : NO_DATA_FOUND
 DECLARE
     EMPLOYEEID EMPLOYEES.EMPLOYEE_ID%TYPE;
-    FIRSTNAME EMPLOYEES.FIRST_NAME%TYPE;
+    FIRSTNAME  EMPLOYEES.FIRST_NAME%TYPE;
 BEGIN
     EMPLOYEEID := 0;
     SELECT FIRST_NAME INTO FIRSTNAME
