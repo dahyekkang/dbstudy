@@ -176,7 +176,7 @@ SELECT D.DEPT_NO AS 학과번호, D.DEPT_NAME AS 학과명, COUNT(S.DEPT_NO) AS 
 --조명훈  전자공학과
 --류민정  컴퓨터공학과
 SELECT S.STUD_NAME AS 학생명, D.DEPT_NAME AS 학과명
-  FROM DEPARTMENT_T D RIGHT OUTER JOIN STUDENT_T S
+  FROM DEPARTMENT_T D INNER JOIN STUDENT_T S
     ON D.DEPT_NO = S.DEPT_NO;
 
 -- 11. 모든 교수들의 연봉순위, 교수명, 연봉을 조회하시오.(10점)
@@ -189,9 +189,9 @@ SELECT S.STUD_NAME AS 학생명, D.DEPT_NAME AS 학과명
 --6     남은혁  4200
 --6     이재우  4200
 --6     이만식  4200
-SELECT 순위, 교수명, 연봉
-  FROM (SELECT RANK() OVER(ORDER BY PROF_SAL DESC) AS 순위, PROF_NAME AS 교수명, PROF_SAL AS 연봉 
-          FROM PROFESSOR_T);
+          
+SELECT RANK() OVER(ORDER BY PROF_SAL DESC) AS 순위, PROF_NAME AS 교수명, PROF_SAL AS 연봉
+  FROM PROFESSOR_T;
 
  
 -- 12. 학년별 평균키와 평균몸무게를 조회하시오. 학년을 기준으로 오름차순 정렬하고, 평균키와 평균몸무게는 모두 소수점 1자리만 남기고 반올림하시오.(10점)
